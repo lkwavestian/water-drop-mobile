@@ -1,31 +1,67 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useQuery, useMutation } from '@apollo/client';
+
+import { FIND, UPDATE } from './graphql/demo';
+
 import './App.css';
 
-function App() {
-    const [count, setCount] = useState(0);
+const App = () => {
+    const [name, setName] = useState('');
+    const [desc, setDesc] = useState('');
+
+    const { loading, data } = useQuery(FIND, {
+        variables: {
+            id: '94d5ecbb-369d-48b7-84a9-cec4b63016ab',
+        },
+    });
+
+    const [update] = useMutation(UPDATE);
+
+    const onChangeNameHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
+        setName(v.target.value);
+    };
+
+    const onChangeDescHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
+        setDesc(v.target.value);
+    };
+
+    const onClickHandler = () => {
+        update({
+            variables: {
+                id: '94d5ecbb-369d-48b7-84a9-cec4b63016ab',
+                params: {
+                    name,
+                    desc,
+                },
+            },
+        });
+    };
 
     return (
-        <>
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-        </>
+        <div>
+            <p>
+                data:
+                {JSON.stringify(data)}
+            </p>
+            <p>
+                loading:
+                {`${loading}`}
+            </p>
+            <p>
+                name:
+                <input onChange={onChangeNameHandler} />
+            </p>
+            <p>
+                desc:
+                <input onChange={onChangeDescHandler} />
+            </p>
+            <p>
+                <button type="button" onClick={onClickHandler}>
+                    更新
+                </button>
+            </p>
+        </div>
     );
-}
+};
 
 export default App;
