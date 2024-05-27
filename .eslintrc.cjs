@@ -5,7 +5,9 @@ module.exports = {
         require.resolve('eslint-config-airbnb/hooks'),
         require.resolve('eslint-config-airbnb-typescript'),
     ],
+    plugins: ['prettier'],
     rules: {
+        'prettier/prettier': 'error',
         'react/function-component-definition': 0,
         'react/react-in-jsx-scope': 0,
         'import/prefer-default-export': 0,
