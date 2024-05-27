@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
+import { Button, Calendar } from 'antd-mobile';
 
 import { FIND, UPDATE } from './graphql/demo';
 
@@ -39,6 +40,9 @@ const App = () => {
 
     return (
         <div>
+            <Calendar />
+
+            <Button color="primary">地方</Button>
             <p>
                 data:
                 {JSON.stringify(data)}
