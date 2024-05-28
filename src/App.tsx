@@ -4,7 +4,7 @@ import { Button, Calendar } from 'antd-mobile';
 
 import { FIND, UPDATE } from './graphql/demo';
 
-import './App.css';
+import styles from './App.module.less';
 
 const App = () => {
     const [name, setName] = useState('');
@@ -39,7 +39,7 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <Calendar />
 
             <Button color="primary">地方</Button>
